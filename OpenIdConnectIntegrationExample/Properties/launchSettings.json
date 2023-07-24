@@ -1,0 +1,10 @@
+﻿{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost:64928/OidcIntegrationExample",
+      "sslPort": 64928
+    }
+  }
+}

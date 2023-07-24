@@ -1,0 +1,82 @@
+<h1 id="tableLabel">Configure Open ID Connect Integrations</h1>
+
+<table class='table table-striped' aria-labelledby="tableLabel">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Authority</th>
+      <th>Audience</th>
+      <th>Callback Uri</th>
+      <th>Client Id</th>
+      <th>Redirect Uri</th>
+      <th>Response Type</th>
+      <th>Scope</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let configuration of oidcConfigurations">
+      <td>
+        <input [(ngModel)]="configuration.id" readonly disabled>
+      </td>
+      <td>
+        <input [(ngModel)]="configuration.authority" name="Authority">
+      </td>
+      <td>
+        <input [(ngModel)]="configuration.audience" name="Audience">
+      </td>
+      <td>
+        <input [(ngModel)]="configuration.callback_uri" name="callback_uri">
+      </td>
+      <td>
+        <input [(ngModel)]="configuration.client_id" name="client_id">
+      </td>
+      <td>
+        <input [(ngModel)]="configuration.redirect_uri" name="redirect_uri">
+      </td>
+      <td>
+        <input [(ngModel)]="configuration.response_type" name="response_type">
+      </td>
+      <td>
+        <input [(ngModel)]="configuration.scope" name="scope">
+      </td>
+      <td>
+        <button style="background: lightblue;" (click)="saveConfiguration(configuration)">Save changes</button>
+      </td>
+      <td>
+        <button style="background: red;" (click)="deleteConfiguration(configuration)">Delete configuration</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input [(ngModel)]="newConfiguration.id" readonly disabled>
+      </td>
+      <td>
+        <input [(ngModel)]="newConfiguration.authority" name="Authority" placeholder="Set authority">
+      </td>
+      <td>
+        <input [(ngModel)]="newConfiguration.audience" name="Audience" placeholder="Set audience">
+      </td>
+      <td>
+        <input [(ngModel)]="newConfiguration.callback_uri" name="callback_uri" placeholder="Set callback uri">
+      </td>
+      <td>
+        <input [(ngModel)]="newConfiguration.client_id" name="client_id" placeholder="Set client id">
+      </td>
+      <td>
+        <input [(ngModel)]="newConfiguration.redirect_uri" name="redirect_uri" placeholder="Set redirect uri">
+      </td>
+      <td>
+        <input [(ngModel)]="newConfiguration.response_type" name="response_type" placeholder="Set response type">
+      </td>
+      <td>
+        <input [(ngModel)]="newConfiguration.scope" name="scope" placeholder="Set scope">
+      </td>
+      <td>
+        <button style="background: lightgreen;" (click)="saveConfiguration(newConfiguration)">Add new configuration</button>
+      </td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>

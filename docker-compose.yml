@@ -18,3 +18,9 @@ services:
     ports:
       - "8081:80"
     restart: always
+    volumes:
+      - sample-data:/OpenIdConnectIntegrationExample/Sample.db
+      
+volumes:
+  sample-data:
+      external: true

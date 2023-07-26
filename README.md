@@ -9,7 +9,13 @@ OpenIdConnectIntegrationExample is a sample application for developers who wants
 
 ## Usage
 
-Use docker for setting up the environment
+This is optional, but as the program uses containers and SQLite, you will need to create a Docker volume where the data can be stored. 
+If not, all data will be lost when creating a new container.
+```bash
+docker volume create sample-data
+```
+
+Use docker for setting up and building the environment
 
 ```bash
 docker-compose up --build
@@ -24,6 +30,7 @@ You can also run the front end locally using:
 ng serve
 ```
 Which will be useful for developing with live code changes.
+
 
 ## Contributing
 

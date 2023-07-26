@@ -13,6 +13,8 @@ export class ConfigureComponent {
     audience: null,
     authority: null,
     callback_uri: null,
+    certificateSerial: null,
+    certificatePassword: null,
     client_id: null,
     id: null,
     redirect_uri: null,
@@ -40,6 +42,8 @@ export class ConfigureComponent {
         this.newConfiguration.audience = null;
         this.newConfiguration.authority = null;
         this.newConfiguration.callback_uri = null;
+        this.newConfiguration.certificatePassword = null;
+        this.newConfiguration.certificateSerial = null;
         this.newConfiguration.client_id = null;
         this.newConfiguration.redirect_uri = null;
         this.newConfiguration.response_type = null;

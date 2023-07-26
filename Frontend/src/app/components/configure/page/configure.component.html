@@ -7,6 +7,8 @@
       <th>Authority</th>
       <th>Audience</th>
       <th>Callback Uri</th>
+      <th>Certificate Password</th>
+      <th>Certificate Serial</th>
       <th>Client Id</th>
       <th>Redirect Uri</th>
       <th>Response Type</th>
@@ -28,6 +30,12 @@
       </td>
       <td>
         <input [(ngModel)]="configuration.callback_uri" name="callback_uri">
+      </td>
+      <td>
+        <input [(ngModel)]="configuration.certificatePassword" name="certificatePassword" type="password">
+      </td>
+      <td>
+        <input [(ngModel)]="configuration.certificateSerial" name="certificateSerial">
       </td>
       <td>
         <input [(ngModel)]="configuration.client_id" name="client_id">
@@ -60,6 +68,12 @@
       </td>
       <td>
         <input [(ngModel)]="newConfiguration.callback_uri" name="callback_uri" placeholder="Set callback uri">
+      </td>
+      <td>
+        <input [(ngModel)]="newConfiguration.certificatePassword" name="certificatePassword" type="password">
+      </td>
+      <td>
+        <input [(ngModel)]="newConfiguration.certificateSerial" name="certificateSerial">
       </td>
       <td>
         <input [(ngModel)]="newConfiguration.client_id" name="client_id" placeholder="Set client id">

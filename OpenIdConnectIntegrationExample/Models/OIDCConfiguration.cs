@@ -10,6 +10,8 @@ namespace OpenIdConnectIntegrationExample.Models
         public string? authority { get; set; }
         public string? audience { get; set; }
         public string? callback_uri { get; set; }
+        public string? certificatePassword { get; set; }
+        public string? certificateSerial { get; set; }
         public string? client_id { get; set; }
         public string? redirect_uri { get; set; }
         public string? response_type { get; set; }

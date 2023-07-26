@@ -19,6 +19,7 @@ builder.Services.AddDbContext<SampleDbContext>(
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient<JWTGeneratorService>();
 builder.Services.AddTransient<ConfigurationService>();
 builder.Services.AddTransient<ConfigurationRepository>();
 

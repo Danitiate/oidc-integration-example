@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { HomeComponent } from './components/home/home.component';
 import { ConfigureComponent } from './components/configure/page/configure.component';
+import { JWTGeneratorComponent } from './components/jwt-generator/page/jwt-generator.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    ConfigureComponent
+    ConfigureComponent,
+    JWTGeneratorComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -23,6 +25,7 @@ import { ConfigureComponent } from './components/configure/page/configure.compon
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'configure', component: ConfigureComponent },
+      { path: 'jwt-generator', component: JWTGeneratorComponent },
     ])
   ],
   providers: [],

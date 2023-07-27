@@ -13,7 +13,7 @@ export class CallbackComponent implements OnInit {
   public oidcConfigurations: OIDCConfiguration[] = [];
   public selectedConfiguration: OIDCConfiguration | null = null;
   code = "";
-  state = "";
+  codeVerifier: string | null = "";
 
   jwtStatus = "Pending";
   tokenEndpointStatus = "Pending";
@@ -34,10 +34,13 @@ export class CallbackComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams
       .subscribe(params => {
-        if(params.code && params.state) {
+        this.codeVerifier = sessionStorage.getItem("code_verifier");
+        if (this.codeVerifier) {
+          sessionStorage.removeItem("code_verifier");
+        }
+        if(params.code && this.codeVerifier) {
           console.log("Callback received from OIDC provider");
           this.code = params.code;
-          this.state = params.state;
           this.CreateJWTAndCallTokenEndpoint();
         }
         else {
@@ -67,9 +70,12 @@ export class CallbackComponent implements OnInit {
   }
 
   private CallTokenEndpoint() {
-    this.callOIDCProviderService.callTokenUri(this.JWTstring, this.code, this.selectedConfiguration!).subscribe(result => {
+    this.callOIDCProviderService.callTokenUri(this.JWTstring, this.code, this.codeVerifier!, this.selectedConfiguration!).subscribe(result => {
       this.tokenEndpointStatus = "OK";
-      console.log(result);
+      sessionStorage.setItem("access_token", JSON.stringify(result));
     });
+    if (this.tokenEndpointStatus != "OK") {
+      this.tokenEndpointStatus = "Failed";
+    }
   }
 }

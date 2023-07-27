@@ -2,18 +2,27 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from "rxjs";
 import { OIDCConfiguration } from "../../configure/models/OIDCConfiguration";
+import { CodeChallengeService } from "./code-challenge.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CallOIDCProviderService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private codeChallengeService: CodeChallengeService
+  ) {}
 
   callAuthorizeUri(uri: string): void {
+    const codeVerifier = this.codeChallengeService.generateCodeVerifier();
+    const codeChallenge = this.codeChallengeService.generateCodeChallenge(codeVerifier);
+    const codeChallengeMethod = "S256";
+    const responseMode = "query";
+    uri += `&code_challenge=${codeChallenge}&code_challenge_method=${codeChallengeMethod}&response_mode=${responseMode}`;
     window.location.href = uri;
   }
 
-  callTokenUri(token: string, code: string, configuration: OIDCConfiguration): Observable<any> {
+  callTokenUri(token: string, code: string, code_verifier: string, configuration: OIDCConfiguration): Observable<any> {
     const headers = new HttpHeaders().set(
       'Content-Type',
       'application/x-www-form-urlencoded'
@@ -24,7 +33,7 @@ export class CallOIDCProviderService {
     body.set("redirectUri", configuration.redirect_uri!);
     body.set("grant_type", "authorization_code");
     body.set("code", code);
-    body.set("code_verifier", "tbd");
+    body.set("code_verifier", code_verifier);
     body.set("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer");
     body.set("client_assertion", token);
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { OIDCConfiguration } from '../../configure/models/OIDCConfiguration';
 import { ConfigureService } from '../../configure/services/configure.service';
 import { CallOIDCProviderService } from '../services/call-oidc-provider.service';
+import { CodeChallengeService } from '../services/code-challenge.service';
 
 @Component({
   selector: 'calloidcprovider',
@@ -36,10 +37,6 @@ export class CallOIDCProviderComponent {
   }
   
   createAuthorizeUri() {
-    const state = "tbd";
-    const codeChallenge = "tbd";
-    const codeChallengeMethod = "S256";
-    const responseMode = "query";
-    this.authorizeUri = `${this.selectedConfiguration?.authority}/authorize?client_id=${this.selectedConfiguration?.client_id}&redirect_uri=${this.selectedConfiguration?.redirect_uri}&response_type=${this.selectedConfiguration?.response_type}&scope=${this.selectedConfiguration?.scope}&state=${state}&code_challenge=${codeChallenge}&code_challenge_method=${codeChallengeMethod}&response_mode=${responseMode}`;
+    this.authorizeUri = `${this.selectedConfiguration?.authority}/authorize?client_id=${this.selectedConfiguration?.client_id}&redirect_uri=${this.selectedConfiguration?.redirect_uri}&response_type=${this.selectedConfiguration?.response_type}&scope=${this.selectedConfiguration?.scope}`;
   }
 }

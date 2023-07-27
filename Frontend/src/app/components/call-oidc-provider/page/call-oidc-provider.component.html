@@ -1,6 +1,6 @@
-<h1 id="tableLabel">Create JWT from configuration</h1>
+<h1 id="tableLabel">Call OIDC Provider</h1>
 
-<select [(ngModel)]="selectedConfiguration">
+<select [(ngModel)]="selectedConfiguration" (change)="selectedConfigurationUpdated()">
   <option value="null" disabled selected>Select a configuration</option>
   <option *ngFor="let configuration of oidcConfigurations" [ngValue]="configuration">{{configuration.authority}}</option>
 </select>
@@ -13,7 +13,6 @@
       <th>Audience</th>
       <th>Callback Uri</th>
       <th>Certificate Serial</th>
-      <th>Certificate Password</th>
       <th>Client Id</th>
       <th>Redirect Uri</th>
       <th>Response Type</th>
@@ -36,9 +35,6 @@
         {{selectedConfiguration?.certificateSerial}}
       </td>    
       <td>
-        {{selectedConfiguration?.certificatePassword}}
-      </td>
-      <td>
         {{selectedConfiguration?.client_id}}
       </td>
       <td>
@@ -53,8 +49,11 @@
     </tr>
   </table>
   <hr>
-  <button style="background: lightblue;" (click)="createJWT()">Generate JWT</button>
+  <div>
+    Authorize url:
+    <input [(ngModel)]="authorizeUri" style="width: 100%;">
+    <button style="background: lightblue;" (click)="callProvider()">Call OIDC Provider</button>
+  </div>
   <hr>
-  <jwt-token-display [JWTstring]="JWTstring" [JWTheader]="JWTheader" [JWTpayload]="JWTpayload"></jwt-token-display>
 </div>
 

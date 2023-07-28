@@ -52,6 +52,10 @@
   <div>
     Authorize url:
     <input [(ngModel)]="authorizeUri" style="width: 100%;">
+    <label [style.color]="clientBasedCallback ? 'red' : ''">
+      Client Based Callback? (Not safe)
+      <input [(ngModel)]="clientBasedCallback" type="checkbox" style="margin-right: 10px;" >
+    </label>
     <button style="background: lightblue;" (click)="callProvider()">Call OIDC Provider</button>
   </div>
   <hr>

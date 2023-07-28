@@ -11,6 +11,7 @@ import { CodeChallengeService } from '../services/code-challenge.service';
 export class CallOIDCProviderComponent {
   public oidcConfigurations: OIDCConfiguration[] = [];
   public selectedConfiguration: OIDCConfiguration | null = null;
+  public clientBasedCallback = false;
   public authorizeUri = "";
 
   constructor(
@@ -21,18 +22,27 @@ export class CallOIDCProviderComponent {
       this.oidcConfigurations = result;
       if (result.length == 1) {
         this.selectedConfiguration = result[0];
-        this.createAuthorizeUri();
+        this.selectedConfigurationUpdated();
       }
     });
   }
 
   callProvider() {
-    if (this.selectedConfiguration) {
-      this.providerService.callAuthorizeUri(this.authorizeUri);
+    if (this.selectedConfiguration && this.clientBasedCallback) {
+      this.providerService.callAuthorizeUriFromClient(this.authorizeUri);
+    } else if (this.selectedConfiguration){
+      this.providerService.callAuthorizeUriFromBackend(this.selectedConfiguration).subscribe(result => {
+        console.log(result);
+      });
     }
   }
 
   selectedConfigurationUpdated() {
+    if (this.selectedConfiguration?.redirect_uri!.includes(":4200")) {
+      this.clientBasedCallback = true;
+    } else {
+      this.clientBasedCallback = false;
+    }
     this.createAuthorizeUri();
   }
   

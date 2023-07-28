@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from "rxjs";
 import { OIDCConfiguration } from "../../configure/models/OIDCConfiguration";
 import { CodeChallengeService } from "./code-challenge.service";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +14,20 @@ export class CallOIDCProviderService {
     private codeChallengeService: CodeChallengeService
   ) {}
 
-  callAuthorizeUri(uri: string): void {
+  /**
+   * Proof of concept, should not be used in production as code_verifier gets stored locally in the browser session.
+   */
+  callAuthorizeUriFromClient(uri: string): void {
     const codeVerifier = this.codeChallengeService.generateCodeVerifier();
     const codeChallenge = this.codeChallengeService.generateCodeChallenge(codeVerifier);
     const codeChallengeMethod = "S256";
     const responseMode = "query";
     uri += `&code_challenge=${codeChallenge}&code_challenge_method=${codeChallengeMethod}&response_mode=${responseMode}`;
     window.location.href = uri;
+  }
+
+  callAuthorizeUriFromBackend(configuration: OIDCConfiguration): Observable<any> {
+    return this.http.post<any>(`${environment.apiBaseUrl}/OpenIDConnect/CallAuthorizeEndpoint`, configuration);
   }
 
   callTokenUri(token: string, code: string, code_verifier: string, configuration: OIDCConfiguration): Observable<any> {

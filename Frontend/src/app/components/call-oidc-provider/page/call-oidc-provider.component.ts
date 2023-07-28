@@ -32,7 +32,7 @@ export class CallOIDCProviderComponent {
       this.providerService.callAuthorizeUriFromClient(this.authorizeUri);
     } else if (this.selectedConfiguration){
       this.providerService.callAuthorizeUriFromBackend(this.selectedConfiguration).subscribe(result => {
-        console.log(result);
+        window.location.href = result;
       });
     }
   }

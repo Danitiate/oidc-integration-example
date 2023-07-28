@@ -38,7 +38,7 @@ export class CallbackComponent implements OnInit {
         if (this.codeVerifier) {
           sessionStorage.removeItem("code_verifier");
         }
-        if(params.code && this.codeVerifier) {
+        if(params.code) {
           console.log("Callback received from OIDC provider");
           this.code = params.code;
           this.CreateJWTAndCallTokenEndpoint();
@@ -72,7 +72,7 @@ export class CallbackComponent implements OnInit {
   private CallTokenEndpoint() {
     this.callOIDCProviderService.callTokenUri(this.JWTstring, this.code, this.codeVerifier!, this.selectedConfiguration!).subscribe(result => {
       this.tokenEndpointStatus = "OK";
-      sessionStorage.setItem("access_token", JSON.stringify(result));
+      localStorage.setItem("access_token", JSON.stringify(result));
     });
     if (this.tokenEndpointStatus != "OK") {
       this.tokenEndpointStatus = "Failed";

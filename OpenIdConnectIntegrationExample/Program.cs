@@ -21,6 +21,7 @@ builder.Services.AddDbContext<SampleDbContext>(
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<JWTGeneratorService>();
 builder.Services.AddTransient<ConfigurationService>();
+builder.Services.AddTransient<OpenIDConnectService>();
 builder.Services.AddTransient<ConfigurationRepository>();
 
 var app = builder.Build();

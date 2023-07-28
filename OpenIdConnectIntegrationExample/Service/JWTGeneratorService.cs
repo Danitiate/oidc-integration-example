@@ -38,9 +38,9 @@ namespace OpenIdConnectIntegrationExample.Service
             var token = encoder.Encode(jwtData.Header, jwtData.Payload, "");
 
             var JWT = new JWTResponse();
-            JWT.headers = jwtData.Header;
-            JWT.payload = jwtData.Payload;
-            JWT.token = token;
+            JWT.Headers = jwtData.Header;
+            JWT.Payload = jwtData.Payload;
+            JWT.Token = token;
             return JWT;
         }
     }

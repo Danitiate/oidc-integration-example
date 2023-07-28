@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from "rxjs";
+import { Observable, tap } from "rxjs";
 import { OIDCConfiguration } from "../../configure/models/OIDCConfiguration";
 import { CodeChallengeService } from "./code-challenge.service";
 import { environment } from "src/environments/environment";
@@ -26,8 +26,10 @@ export class CallOIDCProviderService {
     window.location.href = uri;
   }
 
-  callAuthorizeUriFromBackend(configuration: OIDCConfiguration): Observable<any> {
-    return this.http.post<any>(`${environment.apiBaseUrl}/OpenIDConnect/CallAuthorizeEndpoint`, configuration);
+  callAuthorizeUriFromBackend(configuration: OIDCConfiguration) {
+    return this.http.post(`${environment.apiBaseUrl}/OpenIDConnect/CallAuthorizeEndpoint`, configuration, {
+      responseType: 'text'
+    });
   }
 
   callTokenUri(token: string, code: string, code_verifier: string, configuration: OIDCConfiguration): Observable<any> {

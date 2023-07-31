@@ -7,6 +7,7 @@ using System.Linq;
 using JWT;
 using JWT.Algorithms;
 using JWT.Serializers;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace OpenIdConnectIntegrationExample.Service
 {
@@ -42,6 +43,17 @@ namespace OpenIdConnectIntegrationExample.Service
             JWT.Payload = jwtData.Payload;
             JWT.Token = token;
             return JWT;
+        }
+
+        public JWTResponse DecodeJWT(string jwtToken)
+        {       
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var decodedToken = tokenHandler.ReadJwtToken(jwtToken);
+            var response = new JWTResponse();
+            response.Token = jwtToken;
+            response.Headers = decodedToken.Header.ToDictionary(h => h.Key, h => (object)h.Value);
+            response.Payload = decodedToken.Claims.ToDictionary(c => c.Type, c => (object)c.Value);
+            return response;
         }
     }
 }

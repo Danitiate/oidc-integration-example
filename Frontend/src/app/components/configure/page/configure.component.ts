@@ -16,7 +16,9 @@ export class ConfigureComponent {
     certificateSerial: null,
     certificatePassword: null,
     client_id: null,
+    client_secret: null,
     id: null,
+    jsonWebKey: null,
     redirect_uri: null,
     response_type: null,
     scope: null
@@ -45,6 +47,8 @@ export class ConfigureComponent {
         this.newConfiguration.certificatePassword = null;
         this.newConfiguration.certificateSerial = null;
         this.newConfiguration.client_id = null;
+        this.newConfiguration.client_secret = null;
+        this.newConfiguration.jsonWebKey = null;
         this.newConfiguration.redirect_uri = null;
         this.newConfiguration.response_type = null;
         this.newConfiguration.scope = null;

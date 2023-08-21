@@ -47,6 +47,6 @@ export class CallOIDCProviderComponent {
   }
   
   createAuthorizeUri() {
-    this.authorizeUri = `${this.selectedConfiguration?.authority}/authorize?client_id=${this.selectedConfiguration?.client_id}&redirect_uri=${this.selectedConfiguration?.redirect_uri}&response_type=${this.selectedConfiguration?.response_type}&scope=${this.selectedConfiguration?.scope}`;
+    this.authorizeUri = `${this.selectedConfiguration?.authority}?client_id=${this.selectedConfiguration?.client_id}&redirect_uri=${this.selectedConfiguration?.redirect_uri}&response_type=${this.selectedConfiguration?.response_type}&scope=${this.selectedConfiguration?.scope}`;
   }
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using OpenIdConnectIntegrationExample.Models;
 using OpenIdConnectIntegrationExample.Service;
 using System;
@@ -37,7 +36,7 @@ namespace OpenIdConnectIntegrationExample.Controllers
             var codeChallenge = _OpenIDConnectService.GenerateCodeChallenge();
             var codeChallengeMethod = "S256";
             var responseMode = "query";
-            var uri = $"{authority}/authorize?client_id={clientId}&redirect_uri={redirectUri}&response_type={responseType}&scope={scope}&code_challenge={codeChallenge}&code_challenge_method={codeChallengeMethod}&response_mode={responseMode}";
+            var uri = $"{authority}?client_id={clientId}&redirect_uri={redirectUri}&response_type={responseType}&scope={scope}&code_challenge={codeChallenge}&code_challenge_method={codeChallengeMethod}&response_mode={responseMode}";
             // Frontend can't handle redirects from backend due to CORS, pass the uri instead
             // return Redirect(uri);
             return Ok(uri);
@@ -64,19 +63,27 @@ namespace OpenIdConnectIntegrationExample.Controllers
 
         private FormUrlEncodedContent CreateRequestContent(OIDCConfiguration configuration, string code, string token)
         {
-            var content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            var keyValuePairs = new List<KeyValuePair<string, string>>
             {
                 new KeyValuePair<string, string>("client_id", configuration.client_id),
                 new KeyValuePair<string, string>("redirectUri", configuration.redirect_uri),
                 new KeyValuePair<string, string>("grant_type", "authorization_code"),
                 new KeyValuePair<string, string>("code", code),
-                new KeyValuePair<string, string>("code_verifier", OpenIDConnectService.CodeVerifier),
-                new KeyValuePair<string, string>("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"),
-                new KeyValuePair<string, string>("client_assertion", token),
-            });
+                new KeyValuePair<string, string>("code_verifier", OpenIDConnectService.CodeVerifier)
+            };
+            if (string.IsNullOrEmpty(configuration.client_secret))
+            {
+                keyValuePairs.Add(new KeyValuePair<string, string>("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"));
+                keyValuePairs.Add(new KeyValuePair<string, string>("client_assertion", token));
+            }
+            else
+            {
+                keyValuePairs.Add(new KeyValuePair<string, string>("client_secret", configuration.client_secret));
+            }
 
+            var content = new FormUrlEncodedContent(keyValuePairs);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
-
+            content.Headers.Add("Charset", "utf-8");
             return content;
         }
     }

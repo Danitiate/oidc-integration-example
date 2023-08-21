@@ -6,6 +6,8 @@ export interface OIDCConfiguration {
     certificatePassword: string | null,
     certificateSerial: string | null,
     client_id: string | null,
+    client_secret: string | null,
+    jsonWebKey: string | null,
     redirect_uri: string | null,
     response_type: string | null,
     scope: string | null

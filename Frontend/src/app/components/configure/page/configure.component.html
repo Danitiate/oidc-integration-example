@@ -10,6 +10,8 @@
       <th>Certificate Password</th>
       <th>Certificate Serial</th>
       <th>Client Id</th>
+      <th>Client Secret</th>
+      <th>JWK</th>
       <th>Redirect Uri</th>
       <th>Response Type</th>
       <th>Scope</th>
@@ -39,6 +41,12 @@
       </td>
       <td>
         <input [(ngModel)]="configuration.client_id" name="client_id">
+      </td>
+      <td>
+        <input [(ngModel)]="configuration.client_secret" name="client_secret">
+      </td>
+      <td>
+        <input [(ngModel)]="configuration.jsonWebKey" name="jsonWebKey" disabled>
       </td>
       <td>
         <input [(ngModel)]="configuration.redirect_uri" name="redirect_uri">
@@ -77,6 +85,12 @@
       </td>
       <td>
         <input [(ngModel)]="newConfiguration.client_id" name="client_id" placeholder="Set client id">
+      </td>
+      <td>
+        <input [(ngModel)]="newConfiguration.client_secret" name="client_secret" placeholder="Set client secret">
+      </td>
+      <td>
+        <input [(ngModel)]="newConfiguration.jsonWebKey" name="jsonWebKey" placeholder="Set JWK disabled" disabled>
       </td>
       <td>
         <input [(ngModel)]="newConfiguration.redirect_uri" name="redirect_uri" placeholder="Set redirect uri">

@@ -30,7 +30,7 @@ namespace OpenIdConnectIntegrationExample.Controllers
         {
             var authority = configuration.authority;
             var clientId = configuration.client_id;
-            var redirectUri = configuration.redirect_uri;
+            var redirectUri = configuration.callback_uri;
             var responseType = "code";
             var scope = "openid";
             var codeChallenge = _OpenIDConnectService.GenerateCodeChallenge();
@@ -66,7 +66,7 @@ namespace OpenIdConnectIntegrationExample.Controllers
             var keyValuePairs = new List<KeyValuePair<string, string>>
             {
                 new KeyValuePair<string, string>("client_id", configuration.client_id),
-                new KeyValuePair<string, string>("redirectUri", configuration.redirect_uri),
+                new KeyValuePair<string, string>("redirect_uri", configuration.redirect_uri),
                 new KeyValuePair<string, string>("grant_type", "authorization_code"),
                 new KeyValuePair<string, string>("code", code),
                 new KeyValuePair<string, string>("code_verifier", OpenIDConnectService.CodeVerifier)

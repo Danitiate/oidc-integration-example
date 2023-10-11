@@ -4,8 +4,8 @@ namespace OpenIdConnectIntegrationExample.Models
 {
     public class JWTResponse
     {
-        public IDictionary<string, object> headers { get; set; }
-        public IDictionary<string, object> payload { get; set; }
-        public string token { get; set; }
+        public IDictionary<string, object> Headers { get; set; }
+        public IDictionary<string, object> Payload { get; set; }
+        public string Token { get; set; }
     }
 }

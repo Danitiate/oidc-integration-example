@@ -1,0 +1,26 @@
+<h1 id="tableLabel">Callback</h1>
+<label style="color: red;">Browser based callback not recommended, backend should be called instead. This is used for debugging / proof of concept purposes only</label>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Response</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Callback</td>
+      <td style="color: lightgreen;">OK</td>
+    </tr>
+    <tr>
+      <td>Create JWT</td>
+      <td [style.color]="jwtStatus == 'OK' ? 'lightgreen' : jwtStatus == 'Failed' ? 'red' : ''">{{jwtStatus}}</td>
+    </tr>
+    <tr>
+      <td>Call /token endpoint</td>
+      <td [style.color]="tokenEndpointStatus == 'OK' ? 'lightgreen' : tokenEndpointStatus == 'Failed' ? 'red' : ''">{{tokenEndpointStatus}}</td>
+    </tr>
+  </tbody>
+</table>
+<jwt-token-display [JWTstring]="JWTstring" [JWTheader]="JWTheader" [JWTpayload]="JWTpayload"></jwt-token-display>

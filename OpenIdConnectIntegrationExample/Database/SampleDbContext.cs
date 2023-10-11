@@ -33,6 +33,8 @@ namespace OpenIdConnectIntegrationExample.Database
             builder.Entity<OIDCConfiguration>().Property(c => c.certificatePassword).HasColumnType("varchar(256)");
             builder.Entity<OIDCConfiguration>().Property(c => c.certificateSerial).HasColumnType("varchar(256)");
             builder.Entity<OIDCConfiguration>().Property(c => c.client_id).HasColumnType("varchar(36)");
+            builder.Entity<OIDCConfiguration>().Property(c => c.client_secret).HasColumnType("varchar(36)");
+            builder.Entity<OIDCConfiguration>().Property(c => c.jsonWebKey).HasColumnType("TEXT");
             builder.Entity<OIDCConfiguration>().Property(c => c.response_type).HasColumnType("varchar(256)");
             builder.Entity<OIDCConfiguration>().Property(c => c.redirect_uri).HasColumnType("varchar(256)");
             builder.Entity<OIDCConfiguration>().Property(c => c.scope).HasColumnType("varchar(256)");

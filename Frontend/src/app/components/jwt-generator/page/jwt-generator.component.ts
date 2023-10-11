@@ -20,6 +20,9 @@ export class JWTGeneratorComponent {
   ) {
     configureService.getConfigurations().subscribe(result => {
       this.oidcConfigurations = result;
+      if (result.length == 1) {
+        this.selectedConfiguration = result[0];
+      }
     });
   }
 
@@ -30,19 +33,6 @@ export class JWTGeneratorComponent {
         this.JWTheader = JSON.stringify(result.headers, null, 2);
         this.JWTpayload = JSON.stringify(result.payload, null, 2);
       });
-    }
-  }
-
-  copyToClipboard() {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(this.JWTstring).then(
-        () => {
-          console.log('Copied token to clipboard.');
-        },
-        (err) => {
-          console.error('Could not copy token to clipboard: ', err);
-        }
-      );
     }
   }
 }

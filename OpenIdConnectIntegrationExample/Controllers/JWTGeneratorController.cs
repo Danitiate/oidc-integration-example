@@ -21,5 +21,12 @@ namespace OpenIdConnectIntegrationExample.Controllers
             var jwt = _jwtGeneratorService.GenerateJWTFromConfiguration(oidcConfiguration);
             return Ok(jwt);
         }
+
+        [HttpPost]
+        public IActionResult Decode([FromBody] JWTRequest token)
+        {
+            var decodedJWT = _jwtGeneratorService.DecodeJWT(token.Token);
+            return Ok(decodedJWT);
+        }
     }
 }

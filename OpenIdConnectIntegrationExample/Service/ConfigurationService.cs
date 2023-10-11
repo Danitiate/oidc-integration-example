@@ -7,10 +7,12 @@ namespace OpenIdConnectIntegrationExample.Service
     public class ConfigurationService
     {
         private readonly ConfigurationRepository _configurationRepository;
+        private readonly JWTGeneratorService _jwtGeneratorService;
 
-        public ConfigurationService(ConfigurationRepository configurationRepository) 
+        public ConfigurationService(ConfigurationRepository configurationRepository, JWTGeneratorService jwtGeneratorService) 
         { 
             _configurationRepository = configurationRepository;
+            _jwtGeneratorService = jwtGeneratorService;
         }
 
         public async Task<List<OIDCConfiguration>> GetConfigurations()
@@ -22,6 +24,11 @@ namespace OpenIdConnectIntegrationExample.Service
         {
             if (configuration.Id == null)
             {
+                if (string.IsNullOrEmpty(configuration.certificateSerial))
+                {
+                    configuration.jsonWebKey = _jwtGeneratorService.CreateJWK();
+                }
+
                 return await _configurationRepository.AddConfiguration(configuration);
             }
             else

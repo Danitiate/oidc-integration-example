@@ -1,1 +1,43 @@
-<h1>Hello, world!</h1>
+<div *ngIf="access_token">
+  <p>
+    You are logged in
+  </p>
+  <hr>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Property</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Access Token</td>
+        <td>{{access_token.access_token}}</td>
+      </tr>
+      <tr>
+        <td>ID Token</td>
+        <td>{{access_token.id_token}}</td>
+      </tr>
+      <tr>
+        <td>Token Type</td>
+        <td>{{access_token.token_type}}</td>
+      </tr><tr>
+        <td>Expires In</td>
+        <td>{{access_token.expires_in}}</td>
+      </tr><tr>
+        <td>Refresh Token</td>
+        <td>{{access_token.refresh_token}}</td>
+      </tr><tr>
+        <td>Scope</td>
+        <td>{{access_token.scope}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <jwt-token-display [JWTstring]="access_token!.access_token"></jwt-token-display>
+</div>
+<div *ngIf="!access_token">
+  <p>
+    Please log in
+  </p>
+</div>

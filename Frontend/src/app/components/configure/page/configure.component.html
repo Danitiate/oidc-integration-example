@@ -1,7 +1,7 @@
 <h1 id="tableLabel">Configure Open ID Connect Integrations</h1>
 
-<table class='table table-striped' aria-labelledby="tableLabel">
-  <thead>
+<p-table [value]="oidcConfigurations">
+  <ng-template pTemplate="header">
     <tr>
       <th>Id</th>
       <th>Authority</th>
@@ -18,9 +18,9 @@
       <th></th>
       <th></th>
     </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let configuration of oidcConfigurations">
+  </ng-template>
+  <ng-template pTemplate="body" let-configuration>
+    <tr>
       <td>
         <input [(ngModel)]="configuration.id" readonly disabled>
       </td>
@@ -106,5 +106,5 @@
       </td>
       <td></td>
     </tr>
-  </tbody>
-</table>
+  </ng-template>
+</p-table>
